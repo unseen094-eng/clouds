@@ -1,0 +1,106 @@
+/* ══════════════════════════════
+   WINDOW MANAGER
+══════════════════════════════ */
+.os-window {
+  position: absolute;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  box-shadow: var(--shadow-lg);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  min-width: 300px; min-height: 200px;
+  pointer-events: all;
+  transition: box-shadow 0.3s var(--ease-out), transform 0.3s var(--ease-out), opacity 0.3s;
+}
+
+.os-window.focused {
+  border-color: rgba(124, 111, 247, 0.3);
+  box-shadow: var(--shadow-lg), 0 0 40px var(--accent-glow);
+  transform: scale(1.005);
+}
+
+.os-window.minimized { 
+  opacity: 0;
+  transform: scale(0.8) translateY(100px);
+  pointer-events: none;
+}
+
+.os-window.maximized {
+  top: 10px !important; left: 10px !important;
+  width: calc(100% - 20px) !important;
+  height: calc(100vh - var(--taskbar-h) - 30px) !important;
+  border-radius: var(--radius-lg);
+}
+
+/* ── Title bar ── */
+.window-titlebar {
+  display: flex; align-items: center;
+  height: 44px; padding: 0 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--glass-border);
+  user-select: none;
+}
+
+.window-titlebar-drag { 
+  flex: 1; height: 100%; 
+  display: flex; align-items: center; gap: 10px;
+  cursor: default;
+}
+
+.window-icon { width: 20px; height: 20px; opacity: 0.8; }
+.window-title {
+  font-size: 13px; font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.3px;
+}
+.os-window.focused .window-title { color: var(--text-primary); }
+
+/* Control buttons (Mac style) */
+.window-controls {
+  display: flex; align-items: center; gap: 8px;
+  margin-right: 12px;
+}
+.wc-btn {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: none; position: relative;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0; /* Hide text icon by default */
+  transition: transform 0.2s;
+}
+.wc-btn:hover { transform: scale(1.1); font-size: 8px; color: rgba(0,0,0,0.5); }
+
+.wc-close { background: #ff5f57; }
+.wc-min   { background: #febc2e; }
+.wc-max   { background: #28c840; }
+
+/* ── Window body ── */
+.window-body {
+  flex: 1; overflow: hidden;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* ── Resize handles ── */
+.resize-handle { position: absolute; z-index: 100; }
+.rh-n  { top: -2px; left: 0; right: 0; height: 6px; cursor: n-resize; }
+.rh-s  { bottom: -2px; left: 0; right: 0; height: 6px; cursor: s-resize; }
+.rh-e  { right: -2px; top: 0; bottom: 0; width: 6px; cursor: e-resize; }
+.rh-w  { left: -2px; top: 0; bottom: 0; width: 6px; cursor: w-resize; }
+.rh-se { bottom: 0; right: 0; width: 15px; height: 15px; cursor: se-resize; }
+
+/* Snap Indicator */
+.snap-indicator {
+  position: fixed;
+  background: var(--accent-glow);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  pointer-events: none;
+  transition: all 0.2s var(--ease-out);
+  opacity: 0;
+}
+.snap-indicator.visible { opacity: 0.4; }
