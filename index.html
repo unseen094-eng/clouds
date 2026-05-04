@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clouds OS</title>
+  <meta name="description" content="Clouds OS — A browser-based operating system experience" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/boot.css" />
+  <link rel="stylesheet" href="css/login.css" />
+  <link rel="stylesheet" href="css/desktop.css" />
+  <link rel="stylesheet" href="css/window.css" />
+  <link rel="stylesheet" href="css/taskbar.css" />
+  <link rel="stylesheet" href="css/context-menu.css" />
+  <link rel="stylesheet" href="css/notifications.css" />
+  <link rel="stylesheet" href="css/apps.css" />
+  <link rel="stylesheet" href="css/launcher.css" />
+  <link rel="stylesheet" href="css/quicksettings.css" />
+  <link rel="stylesheet" href="css/dialogs.css" />
+  <link rel="stylesheet" href="css/store.css" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       BOOT SCREEN
+  ════════════════════════════════════════ -->
+  <div id="boot-screen" class="boot-screen">
+    <div class="boot-bg"></div>
+    <div class="boot-content">
+      <div class="boot-logo">
+        <div class="boot-logo-icon">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="38" stroke="url(#grad1)" stroke-width="2"/>
+            <path d="M20 45 Q25 20 40 25 Q45 10 60 20 Q75 15 70 35 Q80 35 78 48 Q76 58 62 55 L22 55 Q10 55 12 45 Z" fill="url(#cloudGrad)" opacity="0.9"/>
+            <defs>
+              <linearGradient id="grad1" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#6ee7f7"/>
+                <stop offset="100%" stop-color="#a78bfa"/>
+              </linearGradient>
+              <linearGradient id="cloudGrad" x1="12" y1="15" x2="78" y2="58" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#e0f2fe"/>
+                <stop offset="100%" stop-color="#c4b5fd"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="boot-logo-text">Clouds OS</div>
+        <div class="boot-logo-version">Version 1.0</div>
+      </div>
+      <div class="boot-loader">
+        <div class="boot-loader-bar">
+          <div class="boot-loader-fill" id="boot-loader-fill"></div>
+        </div>
+        <div class="boot-loader-text" id="boot-loader-text">Initializing kernel…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       LOGIN SCREEN
+  ════════════════════════════════════════ -->
+  <div id="login-screen" class="login-screen hidden">
+    <div class="login-bg"></div>
+    <div class="login-time" id="login-clock"></div>
+    <div class="login-card">
+      <div class="login-avatar" id="login-avatar">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="24" r="14" fill="url(#avatarGrad)"/>
+          <path d="M8 56 Q8 40 32 40 Q56 40 56 56" fill="url(#avatarGrad)"/>
+          <defs>
+            <linearGradient id="avatarGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#6ee7f7"/>
+              <stop offset="100%" stop-color="#a78bfa"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="login-username" id="login-username">Cloud User</div>
+      <form class="login-form" id="login-form" autocomplete="off">
+        <div class="login-input-wrap">
+          <input type="password" id="login-password" placeholder="Password (leave blank)" autocomplete="new-password" />
+          <button type="submit" class="login-arrow" aria-label="Login">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="login-hint">Press Enter or click → to sign in</div>
+      </form>
+      <div class="login-switch" id="login-switch">Switch User</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       DESKTOP ENVIRONMENT
+  ════════════════════════════════════════ -->
+  <div id="desktop" class="desktop hidden">
+
+    <!-- Wallpaper layer -->
+    <div class="desktop-wallpaper" id="desktop-wallpaper"></div>
+
+
+    <!-- Window layer -->
+    <div class="window-layer" id="window-layer"></div>
+
+    <!-- Context menus -->
+    <div class="context-menu-layer" id="context-menu-layer"></div>
+
+    <!-- Notification container -->
+    <div class="notification-container" id="notification-container"></div>
+
+    <!-- Launcher / App drawer -->
+    <div class="launcher-overlay hidden" id="launcher-overlay">
+      <div class="launcher-panel" id="launcher-panel">
+        <div class="launcher-header">
+          <div class="launcher-search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" class="launcher-search-icon"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input type="text" id="launcher-search" placeholder="Search apps…" />
+          </div>
+        </div>
+        <div class="launcher-apps" id="launcher-apps"></div>
+        <div class="launcher-categories" id="launcher-categories"></div>
+      </div>
+    </div>
+
+    <!-- Quick Settings Panel -->
+    <div class="quicksettings-panel hidden" id="quicksettings-panel">
+      <div class="qs-header">Quick Settings</div>
+      <div class="qs-tiles" id="qs-tiles"></div>
+      <div class="qs-sliders" id="qs-sliders"></div>
+      <div class="qs-footer">
+        <button class="qs-btn" id="qs-settings-btn">⚙ Settings</button>
+        <button class="qs-btn qs-btn-danger" id="qs-power-btn">⏻ Power</button>
+      </div>
+    </div>
+
+    <!-- Power dialog -->
+    <div class="dialog-overlay hidden" id="power-dialog">
+      <div class="dialog-box">
+        <div class="dialog-title">Power Options</div>
+        <div class="dialog-body">What would you like to do?</div>
+        <div class="dialog-actions">
+          <button class="dialog-btn" id="power-restart">↺ Restart</button>
+          <button class="dialog-btn dialog-btn-danger" id="power-shutdown">⏻ Shut Down</button>
+          <button class="dialog-btn dialog-btn-secondary" id="power-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar" id="taskbar">
+      <div class="taskbar-left">
+        <button class="taskbar-launcher-btn" id="taskbar-launcher-btn" title="App Launcher">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <div class="taskbar-center" id="taskbar-center">
+        <!-- running + pinned app buttons -->
+      </div>
+      <div class="taskbar-right">
+        <div class="taskbar-systray" id="taskbar-systray"></div>
+        <button class="taskbar-clock-btn" id="taskbar-clock-btn">
+          <span id="taskbar-time">00:00</span>
+          <span id="taskbar-date">Mon Jan 1</span>
+        </button>
+        <button class="taskbar-qs-btn" id="taskbar-qs-btn" title="Quick Settings">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /desktop -->
+
+  <!-- ════════════════════════════════════════
+       SYSTEM SCRIPTS (order matters)
+  ════════════════════════════════════════ -->
+  <script src="js/core/state.js"></script>
+  <script src="js/core/events.js"></script>
+  <script src="js/core/storage.js"></script>
+  <script src="js/core/cloudAPI.js"></script>
+  <script src="js/core/cloudscript.js"></script>
+  <script src="js/core/utils.js"></script>
+  <script src="js/ui/boot.js"></script>
+  <script src="js/ui/login.js"></script>
+  <script src="js/ui/wallpaper.js"></script>
+  <script src="js/ui/window-manager.js"></script>
+  <script src="js/ui/taskbar.js"></script>
+
+  <script src="js/ui/context-menu.js"></script>
+  <script src="js/ui/notifications.js"></script>
+  <script src="js/ui/launcher.js"></script>
+  <script src="js/ui/quicksettings.js"></script>
+  <script src="js/apps/registry.js"></script>
+  <script src="js/apps/filemanager.js"></script>
+  <script src="js/apps/terminal.js"></script>
+  <script src="js/apps/texteditor.js"></script>
+  <script src="js/apps/browser.js"></script>
+  <script src="js/apps/calculator.js"></script>
+  <script src="js/apps/settings.js"></script>
+  <script src="js/apps/clock.js"></script>
+  <script src="js/apps/photos.js"></script>
+  <script src="js/apps/music.js"></script>
+  <script src="js/apps/about.js"></script>
+  <script src="js/apps/notes.js"></script>
+  <script src="js/apps/templates.js"></script>
+  <script src="js/apps/snake.js"></script>
+  <script src="js/apps/weather.js"></script>
+  <script src="js/apps/theme-editor.js"></script>
+  <script src="js/apps/tasks.js"></script>
+  <script src="js/apps/chat.js"></script>
+  <script src="js/apps/photo-editor.js"></script>
+  <script src="js/apps/code.js"></script>
+  <script src="js/apps/tetris.js"></script>
+  <script src="js/apps/sysmonitor.js"></script>
+  <script src="js/apps/ai.js"></script>
+  <script src="js/apps/appstore.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
